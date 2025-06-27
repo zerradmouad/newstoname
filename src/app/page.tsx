@@ -17,7 +17,7 @@ export default function Home() {
 
   const handleFormSubmit = async (data: FormSchemaType) => {
     setLoading(true);
-    setResults(null);
+    setResults(null); // This clears previous results immediately.
     try {
       const result = await generateDomainsAction(data);
       if (result.error) {
@@ -26,7 +26,6 @@ export default function Home() {
           title: "An error occurred",
           description: result.error,
         });
-        setResults(null);
       } else {
         setResults(result.data);
       }
@@ -37,7 +36,6 @@ export default function Home() {
         description:
           error instanceof Error ? error.message : "Please try again later.",
       });
-      setResults(null);
     } finally {
       setLoading(false);
     }
