@@ -227,9 +227,20 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Top-Level Domain (TLD)</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g., com, ai, io" {...field} />
-                    </FormControl>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a TLD" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="com">.com</SelectItem>
+                        <SelectItem value="ai">.ai</SelectItem>
+                        <SelectItem value="io">.io</SelectItem>
+                        <SelectItem value="net">.net</SelectItem>
+                        <SelectItem value="org">.org</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
