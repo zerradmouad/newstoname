@@ -90,7 +90,29 @@ export async function generateDomainsAction(data: FormSchemaType) {
       numberOfDomains: data.numberOfDomains,
     });
 
-    return { data: suggestions, error: null };
+    // Check availability for all suggestions in parallel
+    const suggestionsWithAvailability = await Promise.all(
+      suggestions.map(async (suggestion) => {
+        const availability = await checkDomainAvailabilityAction(
+          suggestion.domainName
+        );
+        return {
+          ...suggestion,
+          status: availability.status,
+        };
+      })
+    );
+
+    // Sort to show available domains first for a better user experience
+    suggestionsWithAvailability.sort((a, b) => {
+      if (a.status === "available" && b.status !== "available") return -1;
+      if (a.status !== "available" && b.status === "available") return 1;
+      if (a.status === "taken" && b.status === "error") return -1;
+      if (a.status === "error" && b.status === "taken") return 1;
+      return a.domainName.localeCompare(b.domainName); // Fallback sort
+    });
+
+    return { data: suggestionsWithAvailability, error: null };
   } catch (error) {
     console.error("Error in generateDomainsAction:", error);
     const errorMessage =

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { SuggestDomainsOutput } from "@/ai/flows/suggest-domains";
 
 export const formSchema = z.object({
   geminiApiKey: z.string().min(1, "Gemini API key is required."),
@@ -14,3 +15,7 @@ export const formSchema = z.object({
 });
 
 export type FormSchemaType = z.infer<typeof formSchema>;
+
+export type DomainSuggestion = SuggestDomainsOutput[number] & {
+  status: "available" | "taken" | "error";
+};

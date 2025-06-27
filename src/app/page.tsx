@@ -5,14 +5,13 @@ import { DomainForm } from "@/components/domain-form";
 import { ResultsTable } from "@/components/results-table";
 import { DomainMuseLogo } from "@/components/domain-muse-logo";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { SuggestDomainsOutput } from "@/ai/flows/suggest-domains";
-import type { FormSchemaType } from "@/lib/types";
+import type { DomainSuggestion, FormSchemaType } from "@/lib/types";
 import { generateDomainsAction } from "@/app/actions";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<SuggestDomainsOutput | null>(null);
+  const [results, setResults] = useState<DomainSuggestion[] | null>(null);
   const { toast } = useToast();
 
   const handleFormSubmit = async (data: FormSchemaType) => {

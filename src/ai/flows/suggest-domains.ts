@@ -39,6 +39,7 @@ const suggestDomainsPrompt = ai.definePrompt({
   prompt: `You are a creative domain name generator. You will receive aggregated news content and generate {{numberOfDomains}} domain name suggestions based on the content.
 
   The domain names should:
+  - Be creative, unique, and memorable to increase the chance of being available.
   - Be relevant to the news content.
   - Not exceed {{maxWordsInDomain}} words.
   - Use the ".{{{tld}}}" TLD.
