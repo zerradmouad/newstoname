@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import type { DomainSuggestion, FormSchemaType } from "@/lib/types";
 import { generateDomainsAction } from "@/app/actions";
 import { useToast } from "@/hooks/use-toast";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -41,7 +42,10 @@ export default function Home() {
   };
 
   return (
-    <main className="container mx-auto px-4 py-8 md:py-12">
+    <main className="container mx-auto px-4 py-8 md:py-12 relative">
+       <div className="absolute top-4 right-4 md:top-8 md:right-8">
+        <ThemeToggle />
+      </div>
       <div className="flex flex-col items-center text-center mb-12">
         <DomainMuseLogo className="w-20 h-20 mb-4" />
         <h1 className="text-4xl md:text-5xl font-bold font-headline tracking-tight text-primary">
