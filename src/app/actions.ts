@@ -1,0 +1,109 @@
+"use server";
+
+import { suggestDomains } from "@/ai/flows/suggest-domains";
+import { formSchema, type FormSchemaType } from "@/lib/types";
+
+// This is a simplified in-memory store. In a real-world serverless environment,
+// this would not persist across function invocations. A more robust solution
+// like Redis or Firestore would be needed for accurate tracking.
+const apiUsage = {
+  mediaStack: 0,
+  gNews: 0,
+  newsApi: 0,
+  currents: 0,
+};
+
+const MOCK_NEWS_CONTENT = `
+Tech Giant Unveils Quantum Leap in AI Development; Market Reacts with Enthusiasm.
+Global Leaders Convene for Summit on Sustainable Energy Solutions, Announce Green New Deal.
+Breakthrough in Medical Science: Researchers Discover Potential Cure for Age-Old Disease.
+Space Exploration Firm Successfully Launches Manned Mission to Mars.
+Fashion World Buzzes as Iconic Brand Releases New Eco-Friendly Clothing Line.
+Cryptocurrency Market Sees Unprecedented Volatility Following Regulatory News.
+Indie Game Studio's Debut Title Becomes Overnight Sensation, Topping Sales Charts.
+Culinary World Astonished by New Fusion Cuisine Trends Sweeping Top Restaurants.
+`;
+
+/**
+ * Simulates fetching and aggregating news from various sources.
+ * In a real application, this function would make fetch requests to
+ * MediaStack, GNews, etc., using the provided API keys.
+ */
+async function aggregateNews(
+  config: Pick<FormSchemaType, "articleFetchDepth">
+): Promise<string> {
+  console.log("Aggregating news with config:", config);
+  // Increment mock usage counters
+  apiUsage.mediaStack++;
+  apiUsage.gNews++;
+  apiUsage.newsApi++;
+  apiUsage.currents++;
+  console.log("Current API usage:", apiUsage);
+
+  // Simulate a network delay
+  await new Promise((res) => setTimeout(res, 500));
+
+  if (config.articleFetchDepth === "Deep") {
+    return MOCK_NEWS_CONTENT.repeat(3); // Simulate more content for 'Deep' fetch
+  }
+  return MOCK_NEWS_CONTENT;
+}
+
+export async function generateDomainsAction(data: FormSchemaType) {
+  const validation = formSchema.safeParse(data);
+  if (!validation.success) {
+    return { error: "Invalid input.", data: null };
+  }
+
+  // Set the Gemini API key from user input.
+  // In a real app, handle this securely.
+  process.env.GOOGLE_GENAI_API_KEY = data.geminiApiKey;
+
+  try {
+    const newsContent = await aggregateNews(data);
+
+    const suggestions = await suggestDomains({
+      newsContent,
+      maxWordsInDomain: data.maxWordsInDomain,
+      tld: data.tld,
+      numberOfDomains: data.numberOfDomains,
+    });
+
+    return { data: suggestions, error: null };
+  } catch (error) {
+    console.error("Error in generateDomainsAction:", error);
+    const errorMessage =
+      error instanceof Error ? error.message : "An unknown error occurred.";
+    if (errorMessage.includes("API key not valid")) {
+      return {
+        error: "Your Gemini API key is invalid. Please check and try again.",
+        data: null,
+      };
+    }
+    return { error: `AI processing failed: ${errorMessage}`, data: null };
+  }
+}
+
+/**
+ * Checks domain availability.
+ * This is a mock implementation. A real-world version would use a WHOIS API.
+ */
+export async function checkDomainAvailabilityAction(
+  domain: string
+): Promise<{ status: "available" | "taken" | "error" }> {
+  console.log(`Checking availability for: ${domain}`);
+  try {
+    // Simulate network delay
+    await new Promise((res) => setTimeout(res, 1000 + Math.random() * 1000));
+
+    // Mock logic: availability based on character count
+    if (domain.length % 2 === 0) {
+      return { status: "available" };
+    } else {
+      return { status: "taken" };
+    }
+  } catch (error) {
+    console.error(`Failed to check availability for ${domain}:`, error);
+    return { status: "error" };
+  }
+}
