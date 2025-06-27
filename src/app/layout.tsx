@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Domain Muse",
+  title: "NewsToName",
   description: "AI-Powered Domain Name Suggestions from News",
 };
 

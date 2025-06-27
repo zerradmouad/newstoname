@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { DomainForm } from "@/components/domain-form";
 import { ResultsTable } from "@/components/results-table";
-import { DomainMuseLogo } from "@/components/domain-muse-logo";
+import { NewsToNameLogo } from "@/components/domain-muse-logo";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { DomainSuggestion, FormSchemaType } from "@/lib/types";
 import { generateDomainsAction } from "@/app/actions";
@@ -47,9 +47,9 @@ export default function Home() {
         <ThemeToggle />
       </div>
       <div className="flex flex-col items-center text-center mb-12">
-        <DomainMuseLogo className="w-20 h-20 mb-4" />
+        <NewsToNameLogo className="w-20 h-20 mb-4" />
         <h1 className="text-4xl md:text-5xl font-bold font-headline tracking-tight text-primary">
-          Domain Muse
+          NewsToName
         </h1>
         <p className="mt-4 text-lg max-w-2xl text-muted-foreground">
           Uncover unique domain names from today's headlines. Enter your API
