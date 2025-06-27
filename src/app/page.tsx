@@ -48,7 +48,7 @@ export default function Home() {
       </div>
       <div className="flex flex-col items-center text-center mb-12">
         <NewsToNameLogo className="w-20 h-20 mb-4" />
-        <h1 className="text-4xl md:text-5xl font-bold font-headline tracking-tight text-primary">
+        <h1 className="text-4xl md:text-5xl font-bold font-headline tracking-tight text-accent">
           NewsToName
         </h1>
         <p className="mt-4 text-lg max-w-2xl text-muted-foreground">
