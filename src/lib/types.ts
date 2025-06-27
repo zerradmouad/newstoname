@@ -16,6 +16,6 @@ export const formSchema = z.object({
 
 export type FormSchemaType = z.infer<typeof formSchema>;
 
-export type DomainSuggestion = SuggestDomainsOutput[number] & {
-  status: "available" | "taken" | "error";
-};
+// DomainSuggestion no longer includes the 'status' property, as availability
+// is now checked on-demand from the UI.
+export type DomainSuggestion = SuggestDomainsOutput[number];

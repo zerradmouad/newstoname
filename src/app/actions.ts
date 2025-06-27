@@ -90,29 +90,9 @@ export async function generateDomainsAction(data: FormSchemaType) {
       numberOfDomains: data.numberOfDomains,
     });
 
-    // Check availability for all suggestions in parallel
-    const suggestionsWithAvailability = await Promise.all(
-      suggestions.map(async (suggestion) => {
-        const availability = await checkDomainAvailabilityAction(
-          suggestion.domainName
-        );
-        return {
-          ...suggestion,
-          status: availability.status,
-        };
-      })
-    );
-
-    // Sort to show available domains first for a better user experience
-    suggestionsWithAvailability.sort((a, b) => {
-      if (a.status === "available" && b.status !== "available") return -1;
-      if (a.status !== "available" && b.status === "available") return 1;
-      if (a.status === "taken" && b.status === "error") return -1;
-      if (a.status === "error" && b.status === "taken") return 1;
-      return a.domainName.localeCompare(b.domainName); // Fallback sort
-    });
-
-    return { data: suggestionsWithAvailability, error: null };
+    // The automatic availability check has been removed. The check is now
+    // triggered manually by the user from the results table.
+    return { data: suggestions, error: null };
   } catch (error) {
     console.error("Error in generateDomainsAction:", error);
     const errorMessage =
@@ -129,16 +109,21 @@ export async function generateDomainsAction(data: FormSchemaType) {
 
 /**
  * Checks domain availability by performing a real WHOIS lookup.
- * This function uses the 'whois' library to query public WHOIS servers.
+ * This function is called by the "Check Availability" button on the frontend.
  *
  * How it works:
  * 1. It takes a domain name (e.g., "example.com").
- * 2. It performs a WHOIS lookup with a 5-second timeout.
- * 3. It analyzes the raw WHOIS text data.
+ * 2. It performs a WHOIS lookup using the 'whois' library with a 5-second timeout.
+ * 3. It analyzes the raw WHOIS text data to determine availability.
  *    - If the response is empty or contains common "not found" phrases (e.g., "No match for domain", "NOT FOUND"),
  *      it's considered **available**.
  *    - Otherwise, if a record is returned, it's considered **taken**.
  * 4. In case of a lookup error (e.g., network issue, timeout), it returns an **error** status.
+ *
+ * To test this function's different states:
+ * - Available: Use a clearly non-existent domain like "thisisadefinitelynotatakendomain12345.com".
+ * - Taken: Use a common domain like "google.com".
+ * - Error: This is harder to test reliably but can occur with network issues or unsupported TLDs.
  *
  * @param domain The full domain name (e.g., "example.com") to check.
  * @returns A promise that resolves to an object with the availability status.
