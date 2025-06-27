@@ -22,7 +22,7 @@ export function ResultsTable({ results }: ResultsTableProps) {
     <div className="border rounded-lg">
       <Table>
         <TableCaption>
-          Domain availability is checked against a mock service. Results may not be accurate.
+          Domain availability is checked in real-time. Results may be cached by TLD registrars.
         </TableCaption>
         <TableHeader>
           <TableRow>

@@ -14,21 +14,40 @@ const apiUsage = {
   currents: 0,
 };
 
-const MOCK_NEWS_CONTENT = `
-Tech Giant Unveils Quantum Leap in AI Development; Market Reacts with Enthusiasm.
-Global Leaders Convene for Summit on Sustainable Energy Solutions, Announce Green New Deal.
-Breakthrough in Medical Science: Researchers Discover Potential Cure for Age-Old Disease.
-Space Exploration Firm Successfully Launches Manned Mission to Mars.
-Fashion World Buzzes as Iconic Brand Releases New Eco-Friendly Clothing Line.
-Cryptocurrency Market Sees Unprecedented Volatility Following Regulatory News.
-Indie Game Studio's Debut Title Becomes Overnight Sensation, Topping Sales Charts.
-Culinary World Astonished by New Fusion Cuisine Trends Sweeping Top Restaurants.
-`;
+// A list of mock articles to simulate a news feed.
+const MOCK_NEWS_ARTICLES = [
+  "Tech Giant Unveils Quantum Leap in AI Development; Market Reacts with Enthusiasm.",
+  "Global Leaders Convene for Summit on Sustainable Energy Solutions, Announce Green New Deal.",
+  "Breakthrough in Medical Science: Researchers Discover Potential Cure for Age-Old Disease.",
+  "Space Exploration Firm Successfully Launches Manned Mission to Mars.",
+  "Fashion World Buzzes as Iconic Brand Releases New Eco-Friendly Clothing Line.",
+  "Cryptocurrency Market Sees Unprecedented Volatility Following Regulatory News.",
+  "Indie Game Studio's Debut Title Becomes Overnight Sensation, Topping Sales Charts.",
+  "Culinary World Astonished by New Fusion Cuisine Trends Sweeping Top Restaurants.",
+  "New Study Reveals Surprising Health Benefits of a Morning Walk.",
+  "Art World Stunned by Discovery of Lost Masterpiece.",
+  "Robotics Company Debuts Advanced Household Assistant Bot.",
+  "Sustainable Farming Innovations Promise to Revolutionize Global Agriculture.",
+  "The Future of Virtual Reality: A Look at the Newest Immersive Experiences.",
+  "E-commerce Sales Skyrocket as Consumers Embrace Online Shopping.",
+];
+
+/**
+ * Shuffles an array in place and returns it.
+ * @param array The array to shuffle.
+ */
+function shuffleArray<T>(array: T[]): T[] {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
 
 /**
  * Simulates fetching and aggregating news from various sources.
- * In a real application, this function would make fetch requests to
- * MediaStack, GNews, etc., using the provided API keys.
+ * To ensure varied AI suggestions on each run, this function shuffles
+ * the mock articles and selects a random subset of them.
  */
 async function aggregateNews(
   config: Pick<FormSchemaType, "articleFetchDepth">
@@ -44,10 +63,11 @@ async function aggregateNews(
   // Simulate a network delay
   await new Promise((res) => setTimeout(res, 500));
 
-  if (config.articleFetchDepth === "Deep") {
-    return MOCK_NEWS_CONTENT.repeat(3); // Simulate more content for 'Deep' fetch
-  }
-  return MOCK_NEWS_CONTENT;
+  const shuffledArticles = shuffleArray([...MOCK_NEWS_ARTICLES]);
+  const articleCount = config.articleFetchDepth === "Deep" ? 8 : 4; // 'Deep' gets more articles
+  const selectedArticles = shuffledArticles.slice(0, articleCount);
+
+  return selectedArticles.join("\n");
 }
 
 export async function generateDomainsAction(data: FormSchemaType) {

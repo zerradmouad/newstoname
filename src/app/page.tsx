@@ -17,7 +17,7 @@ export default function Home() {
 
   const handleFormSubmit = async (data: FormSchemaType) => {
     setLoading(true);
-    setResults(null); // This clears previous results immediately.
+    setResults(null);
     try {
       const result = await generateDomainsAction(data);
       if (result.error) {
@@ -46,7 +46,7 @@ export default function Home() {
       <div className="flex flex-col items-center text-center mb-12">
         <DomainMuseLogo className="w-20 h-20 mb-4" />
         <h1 className="text-4xl md:text-5xl font-bold font-headline tracking-tight text-primary">
-          ZERRAD DOMAIN NEWS
+          Domain Muse
         </h1>
         <p className="mt-4 text-lg max-w-2xl text-muted-foreground">
           Uncover unique domain names from today's headlines. Enter your API
