@@ -85,25 +85,40 @@ export async function generateDomainsAction(data: FormSchemaType) {
 }
 
 /**
- * Checks domain availability.
- * This is a mock implementation. A real-world version would use a WHOIS API.
+ * Checks domain availability by simulating a WHOIS service call.
+ * This is a mock implementation for demonstration purposes. A real-world
+ * version would integrate with a proper WHOIS API.
+ *
+ * How to test:
+ * 1. Run the application and generate a list of domains.
+ * 2. Click the "Check Availability" button for any domain.
+ * 3. Observe the button state change to "Checking...".
+ * 4. After a simulated delay, the button will update to "Available" if the domain
+ *    name (without TLD) contains a vowel, and "Taken" otherwise.
+ * 5. To test the error state, you can manually throw an error inside the try block.
+ *
+ * @param domain The full domain name (e.g., "example.com") to check.
+ * @returns A promise that resolves to an object with the availability status.
  */
 export async function checkDomainAvailabilityAction(
   domain: string
 ): Promise<{ status: "available" | "taken" | "error" }> {
   console.log(`Checking availability for: ${domain}`);
   try {
-    // Simulate network delay
+    // Simulate network delay to mimic a real API call.
     await new Promise((res) => setTimeout(res, 1000 + Math.random() * 1000));
 
-    // Mock logic: availability based on character count
-    if (domain.length % 2 === 0) {
+    // Mock logic: availability is determined by whether the domain name contains a vowel.
+    // This simulates the response from a real WHOIS service.
+    const hasVowel = /[aeiou]/i.test(domain.split('.')[0]);
+    if (hasVowel) {
       return { status: "available" };
     } else {
       return { status: "taken" };
     }
   } catch (error) {
     console.error(`Failed to check availability for ${domain}:`, error);
+    // In case of any failure during the check, return an 'error' status.
     return { status: "error" };
   }
 }
