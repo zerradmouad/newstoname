@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { KeyRound, Wrench, Sparkles, Wand2, Loader2 } from "lucide-react";
@@ -39,6 +40,8 @@ interface DomainFormProps {
   loading: boolean;
 }
 
+const API_KEYS_STORAGE_KEY = "news-to-name-api-keys";
+
 export function DomainForm({ onSubmit, loading }: DomainFormProps) {
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
@@ -55,6 +58,52 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
       numberOfDomains: 5,
     },
   });
+
+  const watchedApiKeys = form.watch([
+    "geminiApiKey",
+    "mediaStackApiKey",
+    "gNewsApiKey",
+    "newsApiApiKey",
+    "currentsApiKey",
+  ]);
+
+  // Effect to save API keys to local storage whenever they change.
+  useEffect(() => {
+    const [
+      geminiApiKey,
+      mediaStackApiKey,
+      gNewsApiKey,
+      newsApiApiKey,
+      currentsApiKey,
+    ] = watchedApiKeys;
+    
+    const apiKeysToSave = {
+      geminiApiKey,
+      mediaStackApiKey,
+      gNewsApiKey,
+      newsApiApiKey,
+      currentsApiKey,
+    };
+    localStorage.setItem(API_KEYS_STORAGE_KEY, JSON.stringify(apiKeysToSave));
+  }, [watchedApiKeys]);
+
+  // Effect to load API keys from local storage on initial render.
+  useEffect(() => {
+    try {
+      const savedKeysRaw = localStorage.getItem(API_KEYS_STORAGE_KEY);
+      if (savedKeysRaw) {
+        const savedKeys = JSON.parse(savedKeysRaw);
+        for (const key in savedKeys) {
+          if (Object.prototype.hasOwnProperty.call(savedKeys, key)) {
+            form.setValue(key as keyof FormSchemaType, savedKeys[key] || "");
+          }
+        }
+      }
+    } catch (error) {
+        console.error("Failed to load or parse API keys from localStorage:", error)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Run only once on mount
 
   return (
     <Card>
