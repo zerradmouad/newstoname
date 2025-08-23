@@ -8,11 +8,9 @@ import type { DomainSuggestion, FormSchemaType } from "@/lib/types";
 import { generateDomainsAction } from "@/app/actions";
 import { useToast } from "@/hooks/use-toast";
 
-// The `PageProps` type is defined to satisfy the expected signature for a Next.js page component.
-// It includes `params` and `searchParams`, even if they are not used in this component,
-// to prevent errors related to how Next.js handles these objects internally.
 type PageProps = {
-  params: { [key: string]: string | string[] | undefined };
+  // The `searchParams` object is used by Next.js to handle query parameters.
+  // It's included here to prevent potential build errors, even if not directly used in the component.
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
@@ -49,8 +47,8 @@ export default function Home(props: PageProps) {
 
   return (
     <main className="container mx-auto px-4 py-8 md:py-12 relative">
-      <div className="flex flex-col items-center text-center mb-12 pt-16">
-        <h1 className="text-5xl md:text-6xl font-bold font-headline tracking-tight text-accent mb-4">
+       <div className="flex flex-col items-center text-center mb-12 pt-16 border rounded-lg p-8">
+        <h1 className="text-5xl md:text-6xl font-bold font-headline tracking-tight text-foreground/80 mb-4">
           NewsToName
         </h1>
         <p className="mt-4 text-xl max-w-3xl text-muted-foreground">

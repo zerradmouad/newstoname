@@ -53,9 +53,9 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
       currentsApiKey: "",
       newsTimeRange: "24h",
       articleFetchDepth: "Light",
-      maxWordsInDomain: 3,
+      maxWordsInDomain: 1,
       tld: "com",
-      numberOfDomains: 5,
+      numberOfDomains: 2,
     },
   });
 
@@ -171,7 +171,7 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                   <FormItem>
                     <div className="flex items-center justify-between">
                       <FormLabel>GNews</FormLabel>
-                      <a href="https://newsapi.org/register" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary flex items-center gap-1">
+                      <a href="https://gnews.io/dashboard" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary flex items-center gap-1">
                         Get Key <Link className="w-3 h-3" />
                       </a>
                     </div>
@@ -285,7 +285,7 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                     <FormLabel>Max Words in Domain: {field.value}</FormLabel>
                     <FormControl>
                        <Slider
-                        defaultValue={[3]}
+                        defaultValue={[1]}
                         max={5}
                         min={1}
                         step={1}
@@ -327,7 +327,7 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                     <FormLabel>Number of Domains to Generate: {field.value}</FormLabel>
                     <FormControl>
                        <Slider
-                        defaultValue={[5]}
+                        defaultValue={[2]}
                         max={10}
                         min={1}
                         step={1}
