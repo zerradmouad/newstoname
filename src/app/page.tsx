@@ -8,7 +8,15 @@ import type { DomainSuggestion, FormSchemaType } from "@/lib/types";
 import { generateDomainsAction } from "@/app/actions";
 import { useToast } from "@/hooks/use-toast";
 
-export default function Home() {
+// The `PageProps` type is defined to satisfy the expected signature for a Next.js page component.
+// It includes `params` and `searchParams`, even if they are not used in this component,
+// to prevent errors related to how Next.js handles these objects internally.
+type PageProps = {
+  params: { [key: string]: string | string[] | undefined };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export default function Home(props: PageProps) {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<DomainSuggestion[] | null>(null);
   const { toast } = useToast();
