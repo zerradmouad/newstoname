@@ -1,9 +1,10 @@
+
 "use client";
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { KeyRound, Wrench, Sparkles, Wand2, Loader2, Link, Check } from "lucide-react";
+import { KeyRound, Wrench, Sparkles, Wand2, Loader2, Link, Eye, EyeOff } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -44,6 +45,7 @@ interface DomainFormProps {
 const API_KEYS_STORAGE_KEY = "news-to-name-api-keys";
 
 export function DomainForm({ onSubmit, loading }: DomainFormProps) {
+  const [showApiKeys, setShowApiKeys] = useState(false);
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -121,9 +123,23 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="space-y-4">
-              <h3 className="text-lg font-medium flex items-center gap-2">
-                <KeyRound className="w-5 h-5" /> API Keys
-              </h3>
+               <div className="flex items-center justify-between">
+                <h3 className="text-lg font-medium flex items-center gap-2">
+                  <KeyRound className="w-5 h-5" /> API Keys
+                </h3>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8"
+                  onClick={() => setShowApiKeys(!showApiKeys)}
+                >
+                  {showApiKeys ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  <span className="sr-only">
+                    {showApiKeys ? 'Hide API keys' : 'Show API keys'}
+                  </span>
+                </Button>
+              </div>
               <FormField
                 control={form.control}
                 name="geminiApiKey"
@@ -137,7 +153,7 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                     </div>
                     <FormControl>
                       <Input
-                        type="password"
+                        type={showApiKeys ? "text" : "password"}
                         placeholder="Enter your Gemini API key"
                         className="font-code"
                         {...field}
@@ -160,7 +176,7 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                       </a>
                     </div>
                     <FormControl>
-                      <Input type="password" placeholder="Optional" className="font-code" {...field} />
+                      <Input type={showApiKeys ? "text" : "password"} placeholder="Optional" className="font-code" {...field} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -177,7 +193,7 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                       </a>
                     </div>
                     <FormControl>
-                      <Input type="password" placeholder="Optional" className="font-code" {...field} />
+                      <Input type={showApiKeys ? "text" : "password"} placeholder="Optional" className="font-code" {...field} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -194,7 +210,7 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                       </a>
                     </div>
                     <FormControl>
-                      <Input type="password" placeholder="Optional" className="font-code" {...field} />
+                      <Input type={showApiKeys ? "text" : "password"} placeholder="Optional" className="font-code" {...field} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -211,7 +227,7 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                       </a>
                     </div>
                     <FormControl>
-                      <Input type="password" placeholder="Optional" className="font-code" {...field} />
+                      <Input type={showApiKeys ? "text" : "password"} placeholder="Optional" className="font-code" {...field} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -358,3 +374,5 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
     </Card>
   );
 }
+
+    
