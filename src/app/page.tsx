@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { DomainForm } from "@/components/domain-form";
 import { ResultsTable } from "@/components/results-table";
-import { NewsToNameLogo } from "@/components/domain-muse-logo";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { DomainSuggestion, FormSchemaType } from "@/lib/types";
 import { generateDomainsAction } from "@/app/actions";
@@ -46,12 +45,11 @@ export default function Home() {
        <div className="absolute top-4 right-4 md:top-8 md:right-8">
         <ThemeToggle />
       </div>
-      <div className="flex flex-col items-center text-center mb-12">
-        <NewsToNameLogo className="w-20 h-20 mb-4" />
-        <h1 className="text-4xl md:text-5xl font-bold font-headline tracking-tight text-accent">
+      <div className="flex flex-col items-center text-center mb-12 pt-16">
+        <h1 className="text-5xl md:text-6xl font-bold font-headline tracking-tight text-accent mb-4">
           NewsToName
         </h1>
-        <p className="mt-4 text-lg max-w-2xl text-muted-foreground">
+        <p className="mt-4 text-xl max-w-3xl text-muted-foreground">
           Uncover unique domain names from today's headlines. Enter your API
           keys, set your preferences, and let our AI find the perfect domain for
           your next big idea.
