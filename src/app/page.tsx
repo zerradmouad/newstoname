@@ -10,13 +10,7 @@ import { generateDomainsAction } from "@/app/actions";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 
-interface HomePageProps {
-  params: {};
-  searchParams: { [key: string]: string | string[] | undefined };
-}
-
-
-export default function Home({}: HomePageProps) {
+export default function Home() {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<DomainSuggestion[] | null>(null);
   const { toast } = useToast();
@@ -50,7 +44,7 @@ export default function Home({}: HomePageProps) {
   return (
     <main className="container mx-auto px-4 py-8 md:py-12 relative">
        <div className="flex flex-col items-center text-center mb-12 border rounded-lg p-8">
-        <h1 className="text-5xl md:text-6xl font-bold font-headline tracking-tight text-foreground/80 mb-4">
+        <h1 className="text-5xl md:text-6xl font-bold font-headline tracking-tight text-primary mb-4">
           NewsToName
         </h1>
         <p className="mt-4 text-xl max-w-3xl text-muted-foreground">
