@@ -44,8 +44,17 @@ interface DomainFormProps {
 
 const API_KEYS_STORAGE_KEY = "news-to-name-api-keys";
 
+type ApiKeyName = "geminiApiKey" | "mediaStackApiKey" | "gNewsApiKey" | "newsApiApiKey" | "currentsApiKey";
+
 export function DomainForm({ onSubmit, loading }: DomainFormProps) {
-  const [showApiKeys, setShowApiKeys] = useState(false);
+  const [showApiKeys, setShowApiKeys] = useState<Record<ApiKeyName, boolean>>({
+    geminiApiKey: false,
+    mediaStackApiKey: false,
+    gNewsApiKey: false,
+    newsApiApiKey: false,
+    currentsApiKey: false,
+  });
+
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -108,6 +117,10 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Run only once on mount
 
+  const toggleApiKeyVisibility = (key: ApiKeyName) => {
+    setShowApiKeys((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -127,18 +140,6 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                 <h3 className="text-lg font-medium flex items-center gap-2">
                   <KeyRound className="w-5 h-5" /> API Keys
                 </h3>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8"
-                  onClick={() => setShowApiKeys(!showApiKeys)}
-                >
-                  {showApiKeys ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                  <span className="sr-only">
-                    {showApiKeys ? 'Hide API keys' : 'Show API keys'}
-                  </span>
-                </Button>
               </div>
               <FormField
                 control={form.control}
@@ -152,12 +153,24 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                       </a>
                     </div>
                     <FormControl>
-                      <Input
-                        type={showApiKeys ? "text" : "password"}
-                        placeholder="Enter your Gemini API key"
-                        className="font-code"
-                        {...field}
-                      />
+                      <div className="relative">
+                        <Input
+                          type={showApiKeys.geminiApiKey ? "text" : "password"}
+                          placeholder="Enter your Gemini API key"
+                          className="font-code pr-10"
+                          {...field}
+                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          className="absolute inset-y-0 right-0 h-full w-10"
+                          onClick={() => toggleApiKeyVisibility("geminiApiKey")}
+                        >
+                          {showApiKeys.geminiApiKey ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                          <span className="sr-only">Toggle visibility</span>
+                        </Button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -176,7 +189,24 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                       </a>
                     </div>
                     <FormControl>
-                      <Input type={showApiKeys ? "text" : "password"} placeholder="Optional" className="font-code" {...field} />
+                     <div className="relative">
+                        <Input
+                          type={showApiKeys.mediaStackApiKey ? "text" : "password"}
+                          placeholder="Optional"
+                          className="font-code pr-10"
+                          {...field}
+                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          className="absolute inset-y-0 right-0 h-full w-10"
+                          onClick={() => toggleApiKeyVisibility("mediaStackApiKey")}
+                        >
+                          {showApiKeys.mediaStackApiKey ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                          <span className="sr-only">Toggle visibility</span>
+                        </Button>
+                      </div>
                     </FormControl>
                   </FormItem>
                 )}
@@ -193,7 +223,24 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                       </a>
                     </div>
                     <FormControl>
-                      <Input type={showApiKeys ? "text" : "password"} placeholder="Optional" className="font-code" {...field} />
+                      <div className="relative">
+                        <Input
+                          type={showApiKeys.gNewsApiKey ? "text" : "password"}
+                          placeholder="Optional"
+                          className="font-code pr-10"
+                          {...field}
+                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          className="absolute inset-y-0 right-0 h-full w-10"
+                          onClick={() => toggleApiKeyVisibility("gNewsApiKey")}
+                        >
+                          {showApiKeys.gNewsApiKey ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                          <span className="sr-only">Toggle visibility</span>
+                        </Button>
+                      </div>
                     </FormControl>
                   </FormItem>
                 )}
@@ -210,7 +257,24 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                       </a>
                     </div>
                     <FormControl>
-                      <Input type={showApiKeys ? "text" : "password"} placeholder="Optional" className="font-code" {...field} />
+                      <div className="relative">
+                        <Input
+                          type={showApiKeys.newsApiApiKey ? "text" : "password"}
+                          placeholder="Optional"
+                          className="font-code pr-10"
+                          {...field}
+                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          className="absolute inset-y-0 right-0 h-full w-10"
+                          onClick={() => toggleApiKeyVisibility("newsApiApiKey")}
+                        >
+                          {showApiKeys.newsApiApiKey ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                          <span className="sr-only">Toggle visibility</span>
+                        </Button>
+                      </div>
                     </FormControl>
                   </FormItem>
                 )}
@@ -227,7 +291,24 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                       </a>
                     </div>
                     <FormControl>
-                      <Input type={showApiKeys ? "text" : "password"} placeholder="Optional" className="font-code" {...field} />
+                      <div className="relative">
+                        <Input
+                          type={showApiKeys.currentsApiKey ? "text" : "password"}
+                          placeholder="Optional"
+                          className="font-code pr-10"
+                          {...field}
+                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          className="absolute inset-y-0 right-0 h-full w-10"
+                          onClick={() => toggleApiKeyVisibility("currentsApiKey")}
+                        >
+                          {showApiKeys.currentsApiKey ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                          <span className="sr-only">Toggle visibility</span>
+                        </Button>
+                      </div>
                     </FormControl>
                   </FormItem>
                 )}
@@ -374,5 +455,3 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
     </Card>
   );
 }
-
-    
