@@ -10,7 +10,13 @@ import { generateDomainsAction } from "@/app/actions";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 
-export default function Home() {
+interface HomePageProps {
+  params: {};
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+
+export default function Home({}: HomePageProps) {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<DomainSuggestion[] | null>(null);
   const { toast } = useToast();
