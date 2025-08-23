@@ -8,13 +8,7 @@ import type { DomainSuggestion, FormSchemaType } from "@/lib/types";
 import { generateDomainsAction } from "@/app/actions";
 import { useToast } from "@/hooks/use-toast";
 
-type PageProps = {
-  // The `searchParams` object is used by Next.js to handle query parameters.
-  // It's included here to prevent potential build errors, even if not directly used in the component.
-  searchParams: { [key: string]: string | string[] | undefined };
-};
-
-export default function Home(props: PageProps) {
+export default function Home() {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<DomainSuggestion[] | null>(null);
   const { toast } = useToast();
@@ -47,7 +41,7 @@ export default function Home(props: PageProps) {
 
   return (
     <main className="container mx-auto px-4 py-8 md:py-12 relative">
-       <div className="flex flex-col items-center text-center mb-12 pt-16 border rounded-lg p-8">
+       <div className="flex flex-col items-center text-center mb-12 border rounded-lg p-8">
         <h1 className="text-5xl md:text-6xl font-bold font-headline tracking-tight text-foreground/80 mb-4">
           NewsToName
         </h1>

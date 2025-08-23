@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { KeyRound, Wrench, Sparkles, Wand2, Loader2, Link } from "lucide-react";
+import { KeyRound, Wrench, Sparkles, Wand2, Loader2, Link, Check } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -34,6 +34,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Slider } from "@/components/ui/slider";
 
 import { formSchema, type FormSchemaType } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 interface DomainFormProps {
   onSubmit: (data: FormSchemaType) => void;
