@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -7,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import type { DomainSuggestion, FormSchemaType } from "@/lib/types";
 import { generateDomainsAction } from "@/app/actions";
 import { useToast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -58,11 +60,9 @@ export default function Home() {
         </div>
         <div className="md:col-span-2">
           {loading && (
-            <div className="space-y-4">
-              <Skeleton className="h-12 w-full" />
-              <Skeleton className="h-20 w-full" />
-              <Skeleton className="h-20 w-full" />
-              <Skeleton className="h-20 w-full" />
+            <div className="flex flex-col items-center justify-center h-full min-h-[400px] border-2 border-dashed rounded-lg bg-card text-muted-foreground">
+              <Loader2 className="h-12 w-12 animate-spin mb-4" />
+              <p className="text-lg">Generating domain suggestions...</p>
             </div>
           )}
           {results && <ResultsTable results={results} />}
