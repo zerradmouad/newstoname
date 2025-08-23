@@ -3,7 +3,6 @@ import { Inter, Source_Code_Pro } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const sourceCodePro = Source_Code_Pro({
@@ -26,13 +25,10 @@ export default function RootLayout({
       <body className={`${inter.variable} ${sourceCodePro.variable} font-body antialiased min-h-screen flex flex-col`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-          <div className="absolute top-4 right-4">
-            <ThemeToggle />
-          </div>
           <div className="flex-grow">
             {children}
           </div>
