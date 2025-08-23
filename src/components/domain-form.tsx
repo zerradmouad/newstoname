@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { KeyRound, Wrench, Sparkles, Wand2, Loader2 } from "lucide-react";
+import { KeyRound, Wrench, Sparkles, Wand2, Loader2, Link } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -128,7 +128,12 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                 name="geminiApiKey"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Gemini API Key (Required)</FormLabel>
+                    <div className="flex items-center justify-between">
+                      <FormLabel>Gemini API Key (Required)</FormLabel>
+                      <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary flex items-center gap-1">
+                        Get Key <Link className="w-3 h-3" />
+                      </a>
+                    </div>
                     <FormControl>
                       <Input
                         type="password"
@@ -147,7 +152,12 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                 name="mediaStackApiKey"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>MediaStack</FormLabel>
+                    <div className="flex items-center justify-between">
+                      <FormLabel>MediaStack</FormLabel>
+                      <a href="https://mediastack.com/signup/free" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary flex items-center gap-1">
+                        Get Key <Link className="w-3 h-3" />
+                      </a>
+                    </div>
                     <FormControl>
                       <Input type="password" placeholder="Optional" className="font-code" {...field} />
                     </FormControl>
@@ -159,7 +169,12 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                 name="gNewsApiKey"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>GNews</FormLabel>
+                    <div className="flex items-center justify-between">
+                      <FormLabel>GNews</FormLabel>
+                      <a href="https://newsapi.org/register" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary flex items-center gap-1">
+                        Get Key <Link className="w-3 h-3" />
+                      </a>
+                    </div>
                     <FormControl>
                       <Input type="password" placeholder="Optional" className="font-code" {...field} />
                     </FormControl>
@@ -171,7 +186,12 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                 name="newsApiApiKey"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>NewsAPI</FormLabel>
+                    <div className="flex items-center justify-between">
+                      <FormLabel>NewsAPI</FormLabel>
+                       <a href="https://newsapi.org/register" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary flex items-center gap-1">
+                        Get Key <Link className="w-3 h-3" />
+                      </a>
+                    </div>
                     <FormControl>
                       <Input type="password" placeholder="Optional" className="font-code" {...field} />
                     </FormControl>
@@ -183,7 +203,12 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                 name="currentsApiKey"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Currents</FormLabel>
+                    <div className="flex items-center justify-between">
+                      <FormLabel>Currents</FormLabel>
+                      <a href="https://currentsapi.services/en/register?action=register" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary flex items-center gap-1">
+                        Get Key <Link className="w-3 h-3" />
+                      </a>
+                    </div>
                     <FormControl>
                       <Input type="password" placeholder="Optional" className="font-code" {...field} />
                     </FormControl>
