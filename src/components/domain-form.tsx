@@ -96,8 +96,12 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
       newsApiApiKey,
       currentsApiKey,
     };
-    localStorage.setItem(API_KEYS_STORAGE_KEY, JSON.stringify(apiKeysToSave));
-  }, [watchedApiKeys]);
+    // We only save if the form has been mounted and the effect is not running for the first time
+    // which might happen with default empty values.
+    if(form.formState.isMounted) {
+      localStorage.setItem(API_KEYS_STORAGE_KEY, JSON.stringify(apiKeysToSave));
+    }
+  }, [watchedApiKeys, form.formState.isMounted]);
 
   // Effect to load API keys from local storage on initial render.
   useEffect(() => {
@@ -105,10 +109,10 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
       const savedKeysRaw = localStorage.getItem(API_KEYS_STORAGE_KEY);
       if (savedKeysRaw) {
         const savedKeys = JSON.parse(savedKeysRaw);
-        for (const key in savedKeys) {
-          if (Object.prototype.hasOwnProperty.call(savedKeys, key)) {
-            form.setValue(key as keyof FormSchemaType, savedKeys[key] || "");
-          }
+        if (savedKeys) {
+            Object.keys(savedKeys).forEach((key) => {
+                form.setValue(key as keyof FormSchemaType, savedKeys[key] || "");
+            });
         }
       }
     } catch (error) {
@@ -455,3 +459,5 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
     </Card>
   );
 }
+
+    
