@@ -70,6 +70,24 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
       numberOfDomains: 2,
     },
   });
+  
+  // Effect to load API keys from local storage on initial render.
+  useEffect(() => {
+    try {
+      const savedKeysRaw = localStorage.getItem(API_KEYS_STORAGE_KEY);
+      if (savedKeysRaw) {
+        const savedKeys = JSON.parse(savedKeysRaw);
+        if (savedKeys) {
+            Object.keys(savedKeys).forEach((key) => {
+                form.setValue(key as keyof FormSchemaType, savedKeys[key] || "");
+            });
+        }
+      }
+    } catch (error) {
+        console.error("Failed to load or parse API keys from localStorage:", error)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.setValue]); // Run only once on mount
 
   const watchedApiKeys = form.watch([
     "geminiApiKey",
@@ -103,23 +121,7 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
     }
   }, [watchedApiKeys, form.formState.isMounted]);
 
-  // Effect to load API keys from local storage on initial render.
-  useEffect(() => {
-    try {
-      const savedKeysRaw = localStorage.getItem(API_KEYS_STORAGE_KEY);
-      if (savedKeysRaw) {
-        const savedKeys = JSON.parse(savedKeysRaw);
-        if (savedKeys) {
-            Object.keys(savedKeys).forEach((key) => {
-                form.setValue(key as keyof FormSchemaType, savedKeys[key] || "");
-            });
-        }
-      }
-    } catch (error) {
-        console.error("Failed to load or parse API keys from localStorage:", error)
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Run only once on mount
+
 
   const toggleApiKeyVisibility = (key: ApiKeyName) => {
     setShowApiKeys((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -459,5 +461,3 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
     </Card>
   );
 }
-
-    
