@@ -67,7 +67,7 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
       currentsApiKey: "",
       newsTimeRange: "24h",
       articleFetchDepth: "Light",
-      maxWordsInDomain: 1,
+      maxWordsInDomain: 2,
       tld: "com",
       numberOfDomains: 2,
     },
@@ -376,7 +376,7 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                     <FormLabel>Max Words in Domain: {field.value}</FormLabel>
                     <FormControl>
                        <Slider
-                        defaultValue={[1]}
+                        defaultValue={[2]}
                         max={5}
                         min={1}
                         step={1}
