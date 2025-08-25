@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { KeyRound, Wrench, Sparkles, Wand2, Loader2, Link, Eye, EyeOff } from "lucide-react";
+import { KeyRound, Wrench, Sparkles, Wand2, Loader2, Link, Eye, EyeOff, Save } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -36,6 +36,7 @@ import { Slider } from "@/components/ui/slider";
 
 import { formSchema, type FormSchemaType } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 
 interface DomainFormProps {
   onSubmit: (data: FormSchemaType) => void;
@@ -47,6 +48,7 @@ const API_KEYS_STORAGE_KEY = "news-to-name-api-keys";
 type ApiKeyName = "geminiApiKey" | "mediaStackApiKey" | "gNewsApiKey" | "newsApiApiKey" | "currentsApiKey";
 
 export function DomainForm({ onSubmit, loading }: DomainFormProps) {
+  const { toast } = useToast();
   const [showApiKeys, setShowApiKeys] = useState<Record<ApiKeyName, boolean>>({
     geminiApiKey: false,
     mediaStackApiKey: false,
@@ -87,41 +89,22 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
         console.error("Failed to load or parse API keys from localStorage:", error)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.setValue]); // Run only once on mount
+  }, []); // Run only once on mount
 
-  const watchedApiKeys = form.watch([
-    "geminiApiKey",
-    "mediaStackApiKey",
-    "gNewsApiKey",
-    "newsApiApiKey",
-    "currentsApiKey",
-  ]);
-
-  // Effect to save API keys to local storage whenever they change.
-  useEffect(() => {
-    const [
-      geminiApiKey,
-      mediaStackApiKey,
-      gNewsApiKey,
-      newsApiApiKey,
-      currentsApiKey,
-    ] = watchedApiKeys;
-    
+  const handleSaveApiKeys = () => {
     const apiKeysToSave = {
-      geminiApiKey,
-      mediaStackApiKey,
-      gNewsApiKey,
-      newsApiApiKey,
-      currentsApiKey,
+      geminiApiKey: form.getValues("geminiApiKey"),
+      mediaStackApiKey: form.getValues("mediaStackApiKey"),
+      gNewsApiKey: form.getValues("gNewsApiKey"),
+      newsApiApiKey: form.getValues("newsApiApiKey"),
+      currentsApiKey: form.getValues("currentsApiKey"),
     };
-    // We only save if the form has been mounted and the effect is not running for the first time
-    // which might happen with default empty values.
-    if(form.formState.isMounted) {
-      localStorage.setItem(API_KEYS_STORAGE_KEY, JSON.stringify(apiKeysToSave));
-    }
-  }, [watchedApiKeys, form.formState.isMounted]);
-
-
+    localStorage.setItem(API_KEYS_STORAGE_KEY, JSON.stringify(apiKeysToSave));
+    toast({
+      title: "API Keys Saved",
+      description: "Your API keys have been securely saved in your browser.",
+    });
+  };
 
   const toggleApiKeyVisibility = (key: ApiKeyName) => {
     setShowApiKeys((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -146,6 +129,10 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                 <h3 className="text-lg font-medium flex items-center gap-2">
                   <KeyRound className="w-5 h-5" /> API Keys
                 </h3>
+                <Button type="button" variant="secondary" size="sm" onClick={handleSaveApiKeys}>
+                  <Save className="w-4 h-4 mr-2" />
+                  Save Keys
+                </Button>
               </div>
               <FormField
                 control={form.control}
@@ -461,3 +448,5 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
     </Card>
   );
 }
+
+    
