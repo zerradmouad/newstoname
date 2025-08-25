@@ -69,7 +69,7 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
       articleFetchDepth: "Light",
       maxWordsInDomain: 2,
       tld: "com",
-      numberOfDomains: 2,
+      numberOfDomains: 10,
     },
   });
   
@@ -418,7 +418,7 @@ export function DomainForm({ onSubmit, loading }: DomainFormProps) {
                     <FormLabel>Number of Domains to Generate: {field.value}</FormLabel>
                     <FormControl>
                        <Slider
-                        defaultValue={[2]}
+                        defaultValue={[10]}
                         max={10}
                         min={1}
                         step={1}
