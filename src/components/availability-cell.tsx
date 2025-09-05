@@ -72,7 +72,7 @@ export function AvailabilityCell({ domainName }: AvailabilityCellProps) {
   // While loading, show a disabled button with a spinner.
   if (isLoading) {
     return (
-      <Button variant="outline" size="sm" disabled>
+      <Button variant="outline" size="xs" disabled>
         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
         Checking...
       </Button>
@@ -83,7 +83,7 @@ export function AvailabilityCell({ domainName }: AvailabilityCellProps) {
   // This allows the user to initiate the check or retry if it failed.
   if (status === "idle" || status === "error") {
     return (
-      <Button variant="outline" size="sm" onClick={handleCheck}>
+      <Button variant="outline" size="xs" onClick={handleCheck}>
         {status === "error" ? (
           <>
             <AlertTriangle className="mr-2 h-4 w-4" />
