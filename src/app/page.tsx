@@ -45,7 +45,7 @@ export default function Home() {
     <main className="container mx-auto px-4 py-8 md:py-12 relative max-w-7xl">
       <div className="flex flex-col md:flex-row justify-center items-center mb-12 border rounded-lg p-8 gap-4 text-center">
         <div className="flex-1">
-            <h1 className="text-6xl md:text-7xl font-bold font-headline tracking-tight text-primary mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold font-headline tracking-tight text-primary mb-4">
             NewsToName
             </h1>
             <p className="text-xl text-muted-foreground">
