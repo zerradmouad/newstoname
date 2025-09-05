@@ -43,7 +43,7 @@ export default function Home() {
   };
 
   return (
-    <main className="container mx-auto px-4 py-8 md:py-12 relative max-w-6xl">
+    <main className="container mx-auto px-4 py-8 md:py-12 relative max-w-4xl">
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
@@ -52,9 +52,7 @@ export default function Home() {
           NewsToName
         </h1>
         <p className="mt-4 text-xl max-w-3xl text-muted-foreground">
-          Uncover unique domain names from today's headlines. Enter your API
-          keys, set your preferences, and let our AI find the perfect domain for
-          your next big idea.
+          Generate Perfect Domain Names from Today’s Headlines
         </p>
       </div>
 
