@@ -45,7 +45,7 @@ export default function Home() {
     <main className="container mx-auto px-4 py-8 md:py-12 relative max-w-6xl">
       <div className="flex flex-col md:flex-row justify-center items-center mb-12 border rounded-lg p-8 gap-4 text-center">
         <div className="flex-1">
-            <h1 className="text-4xl md:text-5xl font-bold font-headline tracking-tight text-primary mb-4">
+            <h1 className="text-4xl font-bold font-headline tracking-tight text-primary mb-4">
             NewsToName
             </h1>
             <p className="text-lg text-muted-foreground">
@@ -69,7 +69,7 @@ export default function Home() {
           {results && <ResultsTable results={results} />}
           {!loading && !results && (
              <div className="flex items-center justify-center h-full min-h-[400px] border-2 border-dashed rounded-lg bg-card">
-              <p className="text-muted-foreground">Your domain suggestions will appear here.</p>
+              <p className="text-lg text-muted-foreground">Your domain suggestions will appear here.</p>
             </div>
           )}
         </div>
