@@ -42,12 +42,12 @@ export default function Home() {
 
   return (
     <main className="container mx-auto px-4 py-8 md:py-12 relative max-w-4xl">
-      <div className="flex flex-col md:flex-row justify-between items-center mb-12 border rounded-lg p-8 gap-4">
-        <div className="flex-1 text-center md:text-left">
+      <div className="flex flex-col md:flex-row justify-center items-center mb-12 border rounded-lg p-8 gap-4">
+        <div className="flex-1 text-center">
             <h1 className="text-5xl md:text-6xl font-bold font-headline tracking-tight text-primary mb-4">
             NewsToName
             </h1>
-            <p className="text-lg max-w-3xl mx-auto md:mx-0 text-muted-foreground">
+            <p className="text-lg text-muted-foreground">
             Generate Perfect Domain Names<br className="md:hidden" /> from Today’s Headlines
             </p>
         </div>
