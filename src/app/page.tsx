@@ -9,6 +9,7 @@ import type { DomainSuggestion, FormSchemaType } from "@/lib/types";
 import { generateDomainsAction } from "@/app/actions";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -42,7 +43,10 @@ export default function Home() {
   };
 
   return (
-    <main className="container mx-auto px-4 py-8 md:py-12 relative">
+    <main className="container mx-auto px-4 py-8 md:py-12 relative max-w-5xl">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
        <div className="flex flex-col items-center text-center mb-12 border rounded-lg p-8">
         <h1 className="text-5xl md:text-6xl font-bold font-headline tracking-tight text-primary mb-4">
           NewsToName

@@ -3,6 +3,7 @@ import { Inter, Source_Code_Pro } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
+import { NewsToNameLogo } from "@/components/domain-muse-logo";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const sourceCodePro = Source_Code_Pro({
