@@ -4,12 +4,10 @@
 import { useState } from "react";
 import { DomainForm } from "@/components/domain-form";
 import { ResultsTable } from "@/components/results-table";
-import { Skeleton } from "@/components/ui/skeleton";
 import type { DomainSuggestion, FormSchemaType } from "@/lib/types";
 import { generateDomainsAction } from "@/app/actions";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -44,16 +42,15 @@ export default function Home() {
 
   return (
     <main className="container mx-auto px-4 py-8 md:py-12 relative max-w-4xl">
-      <div className="flex justify-between items-start mb-12 border rounded-lg p-8">
-        <div className="flex-1 text-center">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-12 border rounded-lg p-8 gap-4">
+        <div className="flex-1 text-center md:text-left">
             <h1 className="text-5xl md:text-6xl font-bold font-headline tracking-tight text-primary mb-4">
             NewsToName
             </h1>
-            <p className="mt-4 text-lg max-w-3xl mx-auto text-muted-foreground">
+            <p className="text-lg max-w-3xl mx-auto md:mx-0 text-muted-foreground">
             Generate Perfect Domain Names<br className="md:hidden" /> from Today’s Headlines
             </p>
         </div>
-        <ThemeToggle />
       </div>
 
 
