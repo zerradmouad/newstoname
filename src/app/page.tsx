@@ -51,7 +51,7 @@ export default function Home() {
         <h1 className="text-5xl md:text-6xl font-bold font-headline tracking-tight text-primary mb-4">
           NewsToName
         </h1>
-        <p className="mt-4 text-xl max-w-3xl text-muted-foreground">
+        <p className="mt-4 text-lg max-w-3xl text-muted-foreground">
         Generate Perfect Domain Names <br className="md:hidden" />from Today’s Headlines
         </p>
       </div>
