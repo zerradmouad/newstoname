@@ -44,10 +44,10 @@ export default function Home() {
 
   return (
     <main className="container mx-auto px-4 py-8 md:py-12 relative max-w-5xl">
-      <div className="absolute top-4 right-4">
-        <ThemeToggle />
-      </div>
-       <div className="flex flex-col items-center text-center mb-12 border rounded-lg p-8">
+       <div className="flex flex-col items-center text-center mb-12 border rounded-lg p-8 relative">
+        <div className="absolute top-4 right-4">
+            <ThemeToggle />
+        </div>
         <h1 className="text-5xl md:text-6xl font-bold font-headline tracking-tight text-primary mb-4">
           NewsToName
         </h1>
